@@ -36,5 +36,7 @@ X = t(X) # Transpose the data since MetICA accepts samples x variables matrices
 
 ```{r}
 M1=MetICA(X,pcs = 10,max_iter = 200,boot.prop = 0.3,trends = F, max.cluster = 10)
-![choose](inst/Launch_MetICA.JPG)
 ```
+![choose](inst/Launch_MetICA.JPG)
+
+
