@@ -15,7 +15,7 @@ library(MetICA)
 
 ### Load yeast metabolomics data:
 
-```R
+```{r}
 data(yeast_metabolome) 
 # Check what is inside the example data:
 yeast_metabolome$features[1:10,]  # Metabolic features (m/z values and ids)
@@ -24,7 +24,7 @@ X = yeast_metabolome$X
 ```
 ### Also possible to load example data from .csv file:
 
-```R
+```{r}
 yeast_metabolome = read.csv("https://raw.githubusercontent.com/daniellyz/MetICA2/master/inst/Yeast-metabolome.csv")
 features = yeast_metabolome[,c("ID","Mass")]
 X = yeast_metabolome[,3:ncol(yeast_metabolome)] # Only keep intensity data for MetICA
@@ -34,7 +34,7 @@ X = t(X) # Transpose the data since MetICA accepts samples x variables matrices
 
 ### Run MetICA simulations:
 
-```{r, echo = True}
+```{r}
 M1=MetICA(X,pcs = 10,max_iter = 200,boot.prop = 0.3,trends = F, max.cluster = 10)
-
+![choose](inst/Launch_MetICA.JPG)
 ```
