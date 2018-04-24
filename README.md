@@ -11,6 +11,25 @@ install_github("daniellyz/MetICA2")
 library(MetICA)
 ```
 
-## An example
+## An example of data analysis using MetICA
+
+### Load yeast metabolomics data:
+
+```R
+data(yeast_metabolome) 
+# Check what is inside the example data:
+yeast_metabolome$feature[1:10,]  # Metabolic features (m/z values and ids)
+yeast_metabolome$X[1:10,1:10] # samples x metabolic features data matrix
+```
+### Alternative way to load example data from .csv file:
+
+```R
+
+yeast_metabolom = read.csv()
+
+```
+
+
+### Load yeast metabolomics data:
 
 
