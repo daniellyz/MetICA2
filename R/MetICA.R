@@ -16,7 +16,6 @@
 #' \item{Stage_3 One general difficulty of ICA on metabolomics data analysis is the selection of number of component. In MetICA, the problem becomes the choice of cluster number since components generated are the geometric centers of clusters. By increasing the number of clusters in HCA, geometric indexes of each cluster are calculated to reflect the convergence of IPCA algorithm. The stability of clusters against bootstrapping is evaluated as well as the kurtosis of cluster centers.}
 #'}
 #'
-#
 #' @references A. Hyvarinen and E. Oja, Independent Component Analysis: Algorithms and Applications, Neural Networks (2000) vol. 13 no. 4-5
 #' @references Fangzhou Yao, Jeff Coquery and Kim-Anh Le Cao, Independent Principal Component Analysis for biologically meaningful dimension reduction of large biological data sets, BMC Bioinformatics (2012) Vol. 13 no. 24
 #' @references Youzhong Liu, Kirill Smirnov, Marianna Lucio, Regis D. Gougeon, Herve Alexandre and Philippe Schmitt-Kopplin, MetICA: independent component analysis for high-resolution mass-spectrometry based non-targeted metabolomics, BMC Bioinformatics (2016) Vol. 17 no. 114
@@ -140,11 +139,11 @@ MetICA<-function(X, pcs = 15, max_iter = 400, boot.prop = 0.3, max.cluster = 20,
       Xb=X[bootstrap_generator(nrow(X),nbt),]
       rownames(Xb)=rownames(X)
       boot_id=c(boot_id,rep("B",pcs))
-      wines.ica <- try(ipca(Xb, ncomp=pcs, mode=type, max.iter=500,w.init = w.init),silent=T)}
+      wines.ica <- try(sipca(Xb, ncomp=pcs, mode=type, max.iter=500,w.init = w.init),silent=T)}
     else{
       Xb=X
       boot_id=c(boot_id,rep("O",pcs))
-      wines.ica <- try(ipca(Xb, ncomp=pcs, mode=type, max.iter=500, w.init = w.init),silent=T)} # Label components from bootstrapped simulations
+      wines.ica <- try(sipca(Xb, ncomp=pcs, mode=type, max.iter=500, w.init = w.init),silent=T)} # Label components from bootstrapped simulations
 
     if (class(wines.ica)!="try-error"){
       S_sum=cbind(S_sum,wines.ica$x) # Matrix storing the scoring matrices

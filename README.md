@@ -35,8 +35,14 @@ X = t(X) # Transpose the data since MetICA accepts samples x variables matrices
 ### Run MetICA simulations:
 
 ```{r}
+# Begin a MetICA simulation with 2000 estimated components in total. The samples are not time-dependent, so trend = FALSE. Numbers of clusters are evaluated between 2 and 10:
 M1=MetICA(X,pcs = 10,max_iter = 200,boot.prop = 0.3,trends = F, max.cluster = 10)
+# Users can confirm the number of pcs used for denoising if they think enough variance is explained, they can modify the number of pcs at this moment as well:
 ```
 ![choose](inst/Launch_MetICA.JPG)
+
+```{r}
+# Validation plot to decide the number of clusters
+results=validationPlot(M1)
 
 
