@@ -139,11 +139,11 @@ MetICA<-function(X, pcs = 15, max_iter = 400, boot.prop = 0.3, max.cluster = 20,
       Xb=X[bootstrap_generator(nrow(X),nbt),]
       rownames(Xb)=rownames(X)
       boot_id=c(boot_id,rep("B",pcs))
-      wines.ica <- try(sipca(Xb, ncomp=pcs, mode=type, max.iter=500,w.init = w.init),silent=T)}
+      wines.ica <- try(ipca(Xb, ncomp=pcs, mode=type, max.iter=500,w.init = w.init),silent=T)}
     else{
       Xb=X
       boot_id=c(boot_id,rep("O",pcs))
-      wines.ica <- try(sipca(Xb, ncomp=pcs, mode=type, max.iter=500, w.init = w.init),silent=T)} # Label components from bootstrapped simulations
+      wines.ica <- try(ipca(Xb, ncomp=pcs, mode=type, max.iter=500, w.init = w.init),silent=T)} # Label components from bootstrapped simulations
 
     if (class(wines.ica)!="try-error"){
       S_sum=cbind(S_sum,wines.ica$x) # Matrix storing the scoring matrices
