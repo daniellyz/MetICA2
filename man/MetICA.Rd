@@ -59,7 +59,7 @@ data(bacteria_peptides)
 M1=MetICA(bacteria_peptides$X,pcs = 20,max_iter = 100,boot.prop = 0.3,max.cluster = 40,trends = T)
 # Generate validation plots along with geometric index calculation to help decide number of clusters
 validationPlot(M1)
-# According to the validation, we choose 10 components
+# According to the validation, we now choose 10 components:
 M2=MetICA_extract_model(M1,10,tops=7)
 
 }

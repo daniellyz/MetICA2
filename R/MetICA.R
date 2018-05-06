@@ -47,7 +47,7 @@
 #' M1=MetICA(bacteria_peptides$X,pcs = 20,max_iter = 100,boot.prop = 0.3,max.cluster = 40,trends = T)
 #' # Generate validation plots along with geometric index calculation to help decide number of clusters
 #' validationPlot(M1)
-#' # According to the validation, we choose 10 components
+#' # According to the validation, we now choose 10 components:
 #' M2=MetICA_extract_model(M1,10,tops=7)
 #'
 #' @export
@@ -56,7 +56,7 @@
 #' @importFrom stats rnorm cor as.dist hclust cutree
 #' @importFrom mixOmics ipca
 #' @importFrom propagate bigcor
-#' @importFrom e1071 kurtosis
+#' @importFrom propagate kurtosis
 
 MetICA<-function(X, pcs = 15, max_iter = 400, boot.prop = 0.3, max.cluster = 20, trends = T, verbose=T){
 
@@ -281,7 +281,7 @@ MetICA<-function(X, pcs = 15, max_iter = 400, boot.prop = 0.3, max.cluster = 20,
     boot_eval_summary[[nb_cluster]]=dis_boot_no_boot
     defl_prop_summary[[nb_cluster]]=defl_prop
 
-    if (!all(total_number>30)){ # At least 30 estimates in each cluster
+    if (all(total_number)<=30){ # If < 30 estimates in all clusters
       max.cluster=nb_cluster
       message("Too few estimates in new cluster(s): max.cluster reset to: ",nb_cluster)}
 
