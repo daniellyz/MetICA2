@@ -52,6 +52,8 @@
 #'
 #' @export
 #'
+#' @importFrom utils memory.size menu
+#' @importFrom stats rnorm cor as.dist hclust cutree
 #' @importFrom mixOmics ipca
 #' @importFrom propagate bigcor
 #' @importFrom e1071 kurtosis
