@@ -51,7 +51,10 @@
 #' M2=MetICA_extract_model(M1,10,tops=7)
 #'
 #' @export
-
+#'
+#' @importFrom mixOmics ipca
+#' @importFrom propagate bigcor
+#' @importFrom e1071 kurtosis
 
 MetICA<-function(X, pcs = 15, max_iter = 400, boot.prop = 0.3, max.cluster = 20, trends = T, verbose=T){
 

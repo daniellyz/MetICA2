@@ -8,6 +8,8 @@
 #' @return Return an overall graph with multiple plots. If cluster_index = TRUE, also return a list object containing clustering quality score.
 #'
 #' @export
+#'
+#' @importFrom propagate bigcor
 
 validationPlot<-function(M1,cluster_index=T){
 
