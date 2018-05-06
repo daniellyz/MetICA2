@@ -22,6 +22,12 @@ install_github("daniellyz/MetICA2")
 library(MetICA)
 ```
 
+## Check the function manuals before using
+```R
+help(MetICA)
+help(validationPlot)
+
+
 ## An example of data analysis using MetICA
 
 ### Load yeast metabolomics data:

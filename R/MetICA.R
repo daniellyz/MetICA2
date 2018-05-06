@@ -281,7 +281,7 @@ MetICA<-function(X, pcs = 15, max_iter = 400, boot.prop = 0.3, max.cluster = 20,
     boot_eval_summary[[nb_cluster]]=dis_boot_no_boot
     defl_prop_summary[[nb_cluster]]=defl_prop
 
-    if (all(total_number)<=30){ # If < 30 estimates in all clusters
+    if (all(total_number<=30)){ # If < 30 estimates in all clusters
       max.cluster=nb_cluster
       message("Too few estimates in new cluster(s): max.cluster reset to: ",nb_cluster)}
 
