@@ -47,9 +47,16 @@ MetICA_extract_model<-function(M1,ics,tops=ics){
   # Extract the selected model:
 
   M2=list()
+
   M2$S=M1$Stage3$S_history[[ics]]
-  M2$A=M1$Stage3$A_history[[ics]]
-  colnames(M2$S)=colnames(M2$A)=paste0("IC",1:ics)
+  AAA=M1$Stage3$A_history[[ics]]
+
+  M2$A=AAA
+  norm=apply(AAA,1,function(x) sqrt(sum(x^2)))
+  for (i in 1:ncol(AAA)){AAA[,i]=AAA[,i]/norm}
+  M2$A1=AAA
+
+  colnames(M2$S)=colnames(M2$A)=colnames(M2$A1)=paste0("IC",1:ics)
 
   kurtosis=M1$Stage3$Kurt_history[[ics]]
   total_number=M1$Stage3$tn_history[[ics]]

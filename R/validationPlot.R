@@ -19,10 +19,10 @@ validationPlot<-function(M1,cluster_index=T){
   new_component_size=sapply(M1$Stage3$Kurt_history,length) # How many new components each time
   cluster_list=list()
   for (i in 1:M1$Stage3$max.cluster){cluster_list[[i]]=rep(i,new_component_size[i])}
-  #par(mfrow=c(3,2))
-  par(mfrow=c(1,1))
 
   # Evaluate newly added clusters when increasing cluster number
+
+  par(mfrow=c(1,2))
 
   plot(unlist(cluster_list),unlist(M1$Stage3$tn_history),col="blue",pch=19,xlab="Number of clusters",ylab="Number of estimates",font.lab=2,font.axis=2,bty="n")
   box(lwd=2)
@@ -58,6 +58,8 @@ validationPlot<-function(M1,cluster_index=T){
     return(results)
   }
   else{return("Please set cluster_index=T if you cannont make a decision!")}
+
+  par(mfrow=c(1,1))
 }
 
 R_index<-function(M1){

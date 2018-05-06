@@ -1,9 +1,9 @@
 #' MetICA simulations on metabolomics data
 #'
 #' The main function for MetICA simulation on a sample × variables (n × p) metabolomics data matrix.
-#' @param X A numeric matrix obtained from metabolomics expriments. Its dimension should be n (samples) × p (metabolic features), either centered or not. Notice: scaled data is not recommended for MetICA!
+#' @param X A numeric matrix obtained from metabolomics expriments. Its dimension should be n (samples) × p (metabolic features), either centered or not. No missing value is allowed. Normalized data is not recommended for MetICA!
 #' @param pcs Number of principal components used to whiten the data before ICA, also number of components estimated in each IPCA run. It should be at least 3. Its value can be modified after the function is launched and percentage of variance explained is calculated. We recommend that PCA whitening should keep at least 80 percent of total variance.
-#' @param max_iter Number of IPCA iterations. It should be at least 50 to provide reliable results. More than 500 runs can lead to long computational time. To avoid computer memory issues, the total number of estimates (pcs × max_iter) must be under 20 000.
+#' @param max_iter Number of IPCA iterations. It should be at least 50 to provide reliable results. More than 500 runs can lead to long computational time. To avoid computer memory issues, the total number of estimates (pcs × max_iter) must be under 25 000.
 #' @param boot.prop Proportion of samples replaced in bootstrap iterations (when X is resampled). It should not exceed 0.4.
 #' @param max.cluster The number of clusters in HCA of estimated components is evaluated from 2 to max.cluster. Its value can be modified in the function if one cluster contains fewer than 30 estimates.
 #' @param trends Boolean variable. TRUE if your observations are time-dependent (e.g. blood samples taken over a period of time from a patient).
@@ -22,6 +22,7 @@
 #'
 #' @return A model (a list object) that contains results from each stage of the simulation
 #' \itemize{
+#'  \item{Stage1$X0 Original metabolomics x data matrix}
 #'  \item{Stage1$S Estimated scores from IPCA runs. Data matrix contains n rows (samples) and pcs × max_iter columns (estimated components)}
 #'  \item{Stage1$A Estimated loadings from IPCA runs. Data matrix contains p rows (metabolic features) and pcs × max_iter columns (estimated components)}
 #'  \item{Stage1$boot_id pcs × max_iter vector indicating bootstrap/without bootstrap iterations.}
@@ -146,16 +147,21 @@ MetICA<-function(X, pcs = 15, max_iter = 400, boot.prop = 0.3, max.cluster = 20,
       wines.ica <- try(ipca(Xb, ncomp=pcs, mode=type, max.iter=500, w.init = w.init),silent=T)} # Label components from bootstrapped simulations
 
     if (class(wines.ica)!="try-error"){
-      S_sum=cbind(S_sum,wines.ica$x) # Matrix storing the scoring matrices
+      SSS = wines.ica$x
+      S_sum=cbind(S_sum,SSS) # Matrix storing the scoring matrices
       W_sum=rbind(W_sum,wines.ica$unmixing) # Storage of demixing matrix
       W0_sum=rbind(W0_sum,w.init) # Storage of initial demixing matrix
-      A_sum=cbind(A_sum,wines.ica$loadings$X)} # Storage of loading matrix
+      AAA = c()
+      for (i in 1:ncol(SSS)){ # Recalculate loadings by projection
+        projected= t(X)%*%SSS[,i]%*%solve(t(SSS[,i])%*%(SSS[,i]))
+        AAA=cbind(AAA,projected)}
+      A_sum=cbind(A_sum,AAA)} # Storage of loading matrix
     else{message("Simulation failed")}
-}
+  }
 
   colnames(S_sum)=paste0("EST",1:ncol(S_sum))
   colnames(A_sum)=paste0("EST",1:ncol(A_sum))
-  Stage1=list(S=S_sum,A=A_sum,boot_id=boot_id,type_id=type_id)
+  Stage1=list(X0=X,S=S_sum,A=A_sum,boot_id=boot_id,type_id=type_id)
 
   if (verbose){print(paste0("First stage completed: ",pcs*max_iter," sources generated!"))}
 
