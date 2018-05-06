@@ -8,11 +8,11 @@ MetICA(X, pcs = 15, max_iter = 400, boot.prop = 0.3, max.cluster = 20,
   trends = T, verbose = T)
 }
 \arguments{
-\item{X}{A numeric matrix obtained from metabolomics expriments. Its dimension should be n (samples) × p (metabolic features), either centered or not. Notice: scaled data is not recommended for MetICA!}
+\item{X}{A numeric matrix obtained from metabolomics expriments. Its dimension should be n (samples) × p (metabolic features), either centered or not. No missing value is allowed. Normalized data is not recommended for MetICA!}
 
 \item{pcs}{Number of principal components used to whiten the data before ICA, also number of components estimated in each IPCA run. It should be at least 3. Its value can be modified after the function is launched and percentage of variance explained is calculated. We recommend that PCA whitening should keep at least 80 percent of total variance.}
 
-\item{max_iter}{Number of IPCA iterations. It should be at least 50 to provide reliable results. More than 500 runs can lead to long computational time. To avoid computer memory issues, the total number of estimates (pcs × max_iter) must be under 20 000.}
+\item{max_iter}{Number of IPCA iterations. It should be at least 50 to provide reliable results. More than 500 runs can lead to long computational time. To avoid computer memory issues, the total number of estimates (pcs × max_iter) must be under 25 000.}
 
 \item{boot.prop}{Proportion of samples replaced in bootstrap iterations (when X is resampled). It should not exceed 0.4.}
 
@@ -25,6 +25,7 @@ MetICA(X, pcs = 15, max_iter = 400, boot.prop = 0.3, max.cluster = 20,
 \value{
 A model (a list object) that contains results from each stage of the simulation
 \itemize{
+ \item{Stage1$X0 Original metabolomics x data matrix}
  \item{Stage1$S Estimated scores from IPCA runs. Data matrix contains n rows (samples) and pcs × max_iter columns (estimated components)}
  \item{Stage1$A Estimated loadings from IPCA runs. Data matrix contains p rows (metabolic features) and pcs × max_iter columns (estimated components)}
  \item{Stage1$boot_id pcs × max_iter vector indicating bootstrap/without bootstrap iterations.}

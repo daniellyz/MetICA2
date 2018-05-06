@@ -19,6 +19,9 @@
 #'
 #' @export
 #'
+#' @importFrom utils memory.size
+#' @importFrom graphics par barplot
+
 MetICA_extract_model<-function(M1,ics,tops=ics){
 
   t=as.numeric(Sys.time())

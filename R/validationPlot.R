@@ -9,7 +9,11 @@
 #'
 #' @export
 #'
+#' @importFrom utils memory.size
+#' @importFrom stats cor cutree
 #' @importFrom propagate bigcor
+#' @importFrom graphics par plot barplot box title polygon
+#' @importFrom grDevices rgb
 
 validationPlot<-function(M1,cluster_index=T){
 
