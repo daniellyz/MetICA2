@@ -18,6 +18,7 @@ MetICA model (a list object) whose number of components is decided by users.
 \itemize{
  \item{"S"}{Scores of MetICA components. Data matrix contains n rows (samples) and ics columns (components)}
  \item{"A"}{Loadings of MetICA components. Data matrix contains p rows (metabolic features) and ics columns (components)}
+ \item{"A1"}{Normalized loadings of MetICA components. Data matrix contains p rows (metabolic features) and ics columns (components)}
  \item{"eval$kurtosis"}{Vector of length ics containing Kurtosis measure of each MetICA component.}
  \item{"eval$cluster_size"}{Number of IPCA estimates in each corresponding cluster.}
  \item{"eval$divergence_index"}{Divergence indexes of clusters.}

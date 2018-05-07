@@ -10,6 +10,7 @@
 #' \itemize{
 #'  \item{"S"}{Scores of MetICA components. Data matrix contains n rows (samples) and ics columns (components)}
 #'  \item{"A"}{Loadings of MetICA components. Data matrix contains p rows (metabolic features) and ics columns (components)}
+#'  \item{"A1"}{Normalized loadings of MetICA components. Data matrix contains p rows (metabolic features) and ics columns (components)}
 #'  \item{"eval$kurtosis"}{Vector of length ics containing Kurtosis measure of each MetICA component.}
 #'  \item{"eval$cluster_size"}{Number of IPCA estimates in each corresponding cluster.}
 #'  \item{"eval$divergence_index"}{Divergence indexes of clusters.}
@@ -74,6 +75,9 @@ MetICA_extract_model<-function(M1,ics,tops=ics){
 
   if (!is.null(tops)){
     par(mfrow=c(1,1))
+
+    total_number2=total_number[order(total_number,decreasing = T)[1:tops]]
+    barplot(total_number2,font = 2,ylab="Total number of estimates", cex.lab = 1.3)
 
     kurtosis2=kurtosis[order(kurtosis,decreasing = T)[1:tops]]
     barplot(kurtosis2,font = 2,ylab="Component kurtosis", cex.lab = 1.3)
