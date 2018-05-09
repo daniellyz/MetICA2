@@ -106,11 +106,11 @@ library(ade4)
 # Ploting 5th and 8th MetICA components:
 s.class(M2$S[,c(1,8)], yeast_metabolome$strains,cellipse=0,cpoint=0,clabel=1.5,add.p=F,grid=F) 
 ```
-Similar to the visualization of PCA scores, MetICA also allows the comparison of metabolic profiles. The following figure compares the metabolic profiles of 15 yeast strains (Biological replicates of the same strain is connected)  
+Similar to the visualization of PCA scores, MetICA also allows the comparison of metabolic profiles. The following figure compares the metabolic profiles of 15 yeast strains (biological replicates of the same strain is connected)  
 
 ![choose](inst/score.png)
 
-If the separation on the first component matched with previous knowledges about yeast strains (e.g. phenotype separation), the variables (mass features) that have high loadings on this component might be potential biomarkers. To extract the top 100: 
+If the separation on the first component matched with previous knowledges about yeast strains (e.g. phenotype separation), the variables (mass features) that have high loadings on this component might be potential biomarkers. To extract these top 100: 
 
 ```{r}
 top100=order(M2$A1[,1],decreasing=T)[1:100]
